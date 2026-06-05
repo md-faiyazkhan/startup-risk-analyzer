@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.env
+.vscode
+
+models/*.joblib
+
+data/raw/
+
+.ipynb_checkpoints/
+
+info/
+
+.dockerignore
