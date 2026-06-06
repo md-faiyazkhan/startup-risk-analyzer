@@ -23,11 +23,10 @@ def engineer_features(data:dict) -> pd.DataFrame:
     return pd.DataFrame([data]) 
 
 
-def predict_risk(data:dict) -> dict: 
+def predict_risk(data: dict) -> dict:
     """
     Takes startup data, runs prediction, returns risk assessment.
     """
-
     # Prepare input
     input_df = engineer_features(data)
 
@@ -39,7 +38,7 @@ def predict_risk(data:dict) -> dict:
     success_prob = round(float(probability[1]) * 100, 2)
 
     # Risk Category
-    if success_prob >= 75: 
+    if success_prob >= 75:
         risk_category = "Low Risk"
     elif success_prob >= 50:
         risk_category = "Medium Risk"
@@ -48,8 +47,8 @@ def predict_risk(data:dict) -> dict:
 
     return {
         "prediction": int(prediction),
-        "success_probability": failure_prob,
-        "failure_probability": failure_prob, 
+        "success_probability": success_prob,
+        "failure_probability": failure_prob,
         "risk_category": risk_category
     }
 
