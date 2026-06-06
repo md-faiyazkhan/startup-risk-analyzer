@@ -1,0 +1,37 @@
+# Data files
+data/raw/
+data/processed/
+
+# Jupyter notebooks
+notebooks/
+
+# Model files
+models/*.joblib
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Git
+.git/
+.gitignore
+
+# Environment
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Info folder
+info/
+
+# README
+README.md
