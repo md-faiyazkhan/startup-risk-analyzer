@@ -1,14 +1,27 @@
-__pycache__/
-*.pyc
-.env
-.vscode/
-
+# Model files
 models/*.joblib
 
+# Data files
 data/raw/
+data/processed/
 
+# Jupyter checkpoints
 .ipynb_checkpoints/
 
-info/
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
 
-.dockerignore
+# Environment
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Info folder
+info/
