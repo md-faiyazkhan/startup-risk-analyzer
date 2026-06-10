@@ -267,5 +267,5 @@ This tool is intended for informational purposes only. Predictions are based on 
 
 **Md Faiyaz Khan**
 - GitHub: [@md-faiyazkhan](https://github.com/md-faiyazkhan)
-- LinkedIn: [linkedin_link](www.linkedin.com/in/mdfaiyazkhan)
+- LinkedIn: [@mdfaiyazkhan](www.linkedin.com/in/mdfaiyazkhan)
 - Email: faiyazkhan.work@gmail.com
