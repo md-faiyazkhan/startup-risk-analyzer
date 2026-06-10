@@ -9,7 +9,7 @@ pipeline = joblib.load(BASE_DIR / 'models' / 'final_pipeline.joblib')
 
 def engineer_features(data:dict) -> pd.DataFrame:
     """
-    Applies the same feature engineering as training piepline.
+    Applies the same feature engineering as training pipeline.
     """
     burn_rate = data['burn_rate_million']
     revenue = data['revenue_million']
