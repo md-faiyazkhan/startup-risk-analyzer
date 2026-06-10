@@ -125,12 +125,17 @@ startup-risk-analyzer/
 ├── data/
 │   ├── raw/
 │   └── processed/
+│       ├── X_train.csv
+│       ├── X_test.csv
+│       ├── y_train.csv
+│       └── y_test.csv
 │
 ├── examples/
 │   └── sample_request.json
 │
 ├── models/
-│   └── final_pipeline.joblib
+│   ├── final_pipeline.joblib
+│   └── preprocessor.joblib
 │
 ├── notebooks/
 │   ├── 01_eda.ipynb
