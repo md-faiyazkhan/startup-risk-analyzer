@@ -1,0 +1,12 @@
+{
+    "funding_rounds": 3,
+    "founder_experience_years": 5,
+    "team_size": 20,
+    "market_size_billion": 10.5,
+    "product_traction_users": 5000,
+    "burn_rate_million": 0.5,
+    "revenue_million": 1.0,
+    "investor_type": "tier1_vc",
+    "sector": "fintech",
+    "founder_background": "technical"
+}
