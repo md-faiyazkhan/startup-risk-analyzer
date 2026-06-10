@@ -4,12 +4,12 @@ Predicts whether a startup will succeed or fail based on key business metrics �
 
 ---
 
-## 🌐 Live Demo
+<!-- ## 🌐 Live Demo
 
 | Service | URL |
 |---------|-----|
 | Streamlit Dashboard | [Coming Soon] |
-| FastAPI Documentation | [Coming Soon] |
+| FastAPI Documentation | [Coming Soon] | -->
 
 ---
 
