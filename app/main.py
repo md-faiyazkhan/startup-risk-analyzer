@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 import uvicorn
-from predictor import predict_risk
+from app.predictor import predict_risk
 
 # FastAPI instance
 app = FastAPI(
