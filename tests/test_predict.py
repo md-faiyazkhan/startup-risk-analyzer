@@ -16,8 +16,8 @@ sample_payload = {
     "burn_rate_million": 0.5,
     "revenue_million": 1.0,
     "investor_type": "tier1_vc",
-    "sector": "fintech",
-    "founder_background": "technical"
+    "sector": "Fintech",
+    "founder_background": "ex_bigtech"
 }
 
 
@@ -108,6 +108,3 @@ def test_predict_internal_server_error(mock_predict):
 
     # Verify that predict_risk() was called exactly once
     mock_predict.assert_called_once()
-
-
-
