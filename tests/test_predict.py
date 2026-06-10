@@ -1,5 +1,3 @@
-# Test prediction endpoint
-
 from fastapi.testclient import TestClient
 from unittest.mock import patch
 from app.main import app
