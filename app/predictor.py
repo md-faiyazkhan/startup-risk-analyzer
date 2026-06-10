@@ -7,9 +7,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 pipeline = joblib.load(BASE_DIR / 'models' / 'final_pipeline.joblib')
 
 
-# Load final pipeline
-pipeline = joblib.load('../models/final_pipeline.joblib')
-
 def engineer_features(data:dict) -> pd.DataFrame:
     """
     Applies the same feature engineering as training piepline.

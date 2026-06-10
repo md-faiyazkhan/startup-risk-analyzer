@@ -8,9 +8,6 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 pipeline = joblib.load(BASE_DIR / 'models' / 'final_pipeline.joblib')
 
-# Load final pipeline
-pipeline = joblib.load('../models/final_pipeline.joblib')
-
 # Page configuration
 st.set_page_config(
     page_title="Startup Risk Analyzer",
