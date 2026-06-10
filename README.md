@@ -203,6 +203,15 @@ docker run -p 8000:8000 -p 8501:8501 mdfaiyazkhan/startup-risk-analyzer
 - Streamlit: `http://localhost:8501`
 - FastAPI Docs: `http://localhost:8000/docs`
 
+## 🐳 Docker Hub
+
+Image is publicly available on Docker Hub:
+
+```bash
+docker pull mdfaiyazkhan/startup-risk-analyzer
+docker run -p 8000:8000 -p 8501:8501 mdfaiyazkhan/startup-risk-analyzer
+```
+
 ---
 
 ## 📡 API Reference
