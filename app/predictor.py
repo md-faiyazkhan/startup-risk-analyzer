@@ -1,6 +1,11 @@
-import numpy as np
 import pandas as pd
 import joblib
+from pathlib import Path
+
+# Resolve base directory relative to this file — works both locally and in Docker
+BASE_DIR = Path(__file__).resolve().parent.parent
+pipeline = joblib.load(BASE_DIR / 'models' / 'final_pipeline.joblib')
+
 
 # Load final pipeline
 pipeline = joblib.load('../models/final_pipeline.joblib')
