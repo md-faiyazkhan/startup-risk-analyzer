@@ -9,9 +9,7 @@ def test_root_endpoint():
     Verify that the health check endpoint is working correctly.
     """
 
-    response = client.get("/")
+    response = client.get("/v1/health")
 
     assert response.status_code == 200
-    assert response.json() == {
-        "message": "Startup Risk Analyzer API is running"
-    }
+    assert response.json()["status"] == "healthy"

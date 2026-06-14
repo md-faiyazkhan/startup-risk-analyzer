@@ -25,7 +25,7 @@ sample_payload = {
 @patch("app.main.predict_risk")
 def test_predict_success(mock_predict):
     """
-    Verify that the /predict endpoint returns the expected
+    Verify that the /v1/predict endpoint returns the expected
     response when prediction is successful.
     """
 
@@ -38,7 +38,7 @@ def test_predict_success(mock_predict):
     }
 
     # Send POST request to the prediction endpoint
-    response = client.post("/predict", json=sample_payload)
+    response = client.post("/v1/predict", json=sample_payload)
 
     # Verify HTTP status code
     assert response.status_code == 200
@@ -73,12 +73,12 @@ def test_predict_invalid_input():
         "burn_rate_million": 0.5,
         "revenue_million": 1.0,
         "investor_type": "tier1_vc",
-        "sector": "fintech",
-        "founder_background": "technical"
+        "sector": "Fintech",
+        "founder_background": "ex_bigtech"
     }
 
     # Send POST request with invalid data
-    response = client.post("/predict", json=invalid_payload)
+    response = client.post("/v1/predict", json=invalid_payload)
 
     # Verify validation error status code
     assert response.status_code == 422
@@ -88,7 +88,7 @@ def test_predict_invalid_input():
 @patch("app.main.predict_risk")
 def test_predict_internal_server_error(mock_predict):
     """
-    Verify that the /predict endpoint returns a 500 error
+    Verify that the /v1/predict endpoint returns a 500 error
     when an unexpected exception occurs.
     """
 
@@ -96,7 +96,7 @@ def test_predict_internal_server_error(mock_predict):
     mock_predict.side_effect = Exception("Model failed")
 
     # Send POST request
-    response = client.post("/predict", json=sample_payload)
+    response = client.post("/v1/predict", json=sample_payload)
 
     # Verify HTTP status code
     assert response.status_code == 500
