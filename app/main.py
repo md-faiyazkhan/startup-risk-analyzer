@@ -6,6 +6,9 @@ import uvicorn
 from app.predictor import predict_risk
 from typing import Literal
 
+# Track server start time
+START_TIME = time.time()
+
 # Setup logger
 logging.basicConfig(
     level=logging.INFO,
@@ -36,8 +39,14 @@ class StartupInput(BaseModel):
 # Health Check Endpoint
 @app.get("/")
 def root():
+    uptime = round(time.time() - START_TIME, 2)
     logger.info("Health check endpoint called")
-    return {"message": "Startup Risk Analyzer API is running"}
+    return {
+        "status": "healthy",
+        "model": "loaded",
+        "version": "v1.0",
+        "uptime_seconds": uptime
+    }
 
 # Prediction Endpoint
 @app.post("/predict")
