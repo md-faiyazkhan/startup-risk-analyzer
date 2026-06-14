@@ -1,13 +1,18 @@
 import pandas as pd
 import joblib
+import logging
 from pathlib import Path
+
+# Setup logger
+logger = logging.getLogger(__name__)
 
 # Resolve base directory relative to this file — works both locally and in Docker
 BASE_DIR = Path(__file__).resolve().parent.parent
 pipeline = joblib.load(BASE_DIR / 'models' / 'final_pipeline.joblib')
+logger.info("Model loaded successfully")
 
 
-def engineer_features(data:dict) -> pd.DataFrame:
+def engineer_features(data: dict) -> pd.DataFrame:
     """
     Applies the same feature engineering as training pipeline.
     """
@@ -16,19 +21,22 @@ def engineer_features(data:dict) -> pd.DataFrame:
     team = data['team_size']
     traction = data['product_traction_users']
 
-    # Feature Engineering - same as training
+    # Feature Engineering — same as training
     data['burn_efficiency'] = revenue / burn_rate if burn_rate != 0 else 0
-    data['revenue_per_employee'] = revenue / team if team != 0 else 0 
-    data['traction_per_employee'] = traction / team if team != 0 else 0 
+    data['revenue_per_employee'] = revenue / team if team != 0 else 0
+    data['traction_per_employee'] = traction / team if team != 0 else 0
     data['runway_risk'] = 1 if burn_rate > revenue else 0
 
-    return pd.DataFrame([data]) 
+    logger.info("Feature engineering completed")
+    return pd.DataFrame([data])
 
 
 def predict_risk(data: dict) -> dict:
     """
     Takes startup data, runs prediction, returns risk assessment.
     """
+    logger.info("Running prediction")
+
     # Prepare input
     input_df = engineer_features(data)
 
@@ -47,10 +55,11 @@ def predict_risk(data: dict) -> dict:
     else:
         risk_category = "High Risk"
 
+    logger.info(f"Prediction complete — risk_category: {risk_category}")
+
     return {
         "prediction": int(prediction),
         "success_probability": success_prob,
         "failure_probability": failure_prob,
         "risk_category": risk_category
     }
-

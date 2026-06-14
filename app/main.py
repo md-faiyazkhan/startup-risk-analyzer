@@ -1,7 +1,15 @@
+import logging
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 import uvicorn
 from app.predictor import predict_risk
+
+# Setup logger
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+logger = logging.getLogger(__name__)
 
 # FastAPI instance
 app = FastAPI(
@@ -26,18 +34,21 @@ class StartupInput(BaseModel):
 # Health Check Endpoint
 @app.get("/")
 def root():
+    logger.info("Health check endpoint called")
     return {"message": "Startup Risk Analyzer API is running"}
 
 # Prediction Endpoint
 @app.post("/predict")
 def predict(data: StartupInput):
+    logger.info(f"Prediction requested — sector: {data.sector}, investor_type: {data.investor_type}")
     try:
         input_dict = data.model_dump()
         result = predict_risk(input_dict)
+        logger.info(f"Prediction result — risk_category: {result['risk_category']}, success_probability: {result['success_probability']}%")
         return result
     except Exception as e:
+        logger.error(f"Prediction failed — error: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
-    
