@@ -3,6 +3,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 import uvicorn
 from app.predictor import predict_risk
+from typing import Literal
 
 # Setup logger
 logging.basicConfig(
@@ -27,9 +28,9 @@ class StartupInput(BaseModel):
     product_traction_users: int = Field(..., ge=0, description="Number of active users")
     burn_rate_million: float = Field(..., gt=0, description="Monthly burn rate in million USD")
     revenue_million: float = Field(..., ge=0, description="Monthly revenue in million USD")
-    investor_type: str = Field(..., description="Type of investor: angel, none, tier1_vc, tier2_vc")
-    sector: str = Field(..., description="Industry sector")
-    founder_background: str = Field(..., description="Founder background")
+    investor_type: Literal['angel', 'none', 'tier1_vc', 'tier2_vc'] = Field(..., description="Type of investor")
+    sector: Literal['AI', 'Climate', 'Crypto', 'Ecommerce', 'Fintech', 'Health', 'SaaS'] = Field(..., description="Industry sector")
+    founder_background: Literal['academic', 'ex_bigtech', 'first_time', 'serial_founder'] = Field(..., description="Founder background")
 
 # Health Check Endpoint
 @app.get("/")
