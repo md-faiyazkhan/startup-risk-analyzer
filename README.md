@@ -291,6 +291,7 @@ Expected output: **4 passed**
 
 - **Model Retraining Pipeline** — Automatically retrain model when new data arrives
 - **Model Versioning** — Track experiments using MLflow
+- **Rate Limiting** — Restrict API requests per IP to prevent abuse
 - **Database Integration** — Store predictions in MySQL for historical analysis
 - **Batch Prediction** — Analyze multiple startups simultaneously
 - **Model Monitoring** — Track model performance drift in production
