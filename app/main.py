@@ -1,4 +1,5 @@
 import logging
+import time
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 import uvicorn
@@ -42,13 +43,16 @@ def root():
 @app.post("/predict")
 def predict(data: StartupInput):
     logger.info(f"Prediction requested — sector: {data.sector}, investor_type: {data.investor_type}")
+    start_time = time.time()
     try:
         input_dict = data.model_dump()
         result = predict_risk(input_dict)
-        logger.info(f"Prediction result — risk_category: {result['risk_category']}, success_probability: {result['success_probability']}%")
+        response_time = round((time.time() - start_time) * 1000, 2)
+        logger.info(f"Prediction result — risk_category: {result['risk_category']}, success_probability: {result['success_probability']}%, response_time: {response_time}ms")
         return result
     except Exception as e:
-        logger.error(f"Prediction failed — error: {str(e)}")
+        response_time = round((time.time() - start_time) * 1000, 2)
+        logger.error(f"Prediction failed — error: {str(e)}, response_time: {response_time}ms")
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
