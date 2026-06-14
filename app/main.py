@@ -1,10 +1,10 @@
 import logging
 import time
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, APIRouter
 from pydantic import BaseModel, Field
+from typing import Literal
 import uvicorn
 from app.predictor import predict_risk
-from typing import Literal
 
 # Track server start time
 START_TIME = time.time()
@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 app = FastAPI(
     title="Startup Risk Analyzer API",
     description="Predicts startup success or failure based on key business metrics.",
-    version="1.0.0"
+    version="v1.0"
 )
 
 # Input Schema
@@ -36,9 +36,12 @@ class StartupInput(BaseModel):
     sector: Literal['AI', 'Climate', 'Crypto', 'Ecommerce', 'Fintech', 'Health', 'SaaS'] = Field(..., description="Industry sector")
     founder_background: Literal['academic', 'ex_bigtech', 'first_time', 'serial_founder'] = Field(..., description="Founder background")
 
+# API Router with v1 prefix
+router = APIRouter(prefix="/v1")
+
 # Health Check Endpoint
-@app.get("/")
-def root():
+@router.get("/health")
+def health():
     uptime = round(time.time() - START_TIME, 2)
     logger.info("Health check endpoint called")
     return {
@@ -49,7 +52,7 @@ def root():
     }
 
 # Prediction Endpoint
-@app.post("/predict")
+@router.post("/predict")
 def predict(data: StartupInput):
     logger.info(f"Prediction requested — sector: {data.sector}, investor_type: {data.investor_type}")
     start_time = time.time()
@@ -63,6 +66,9 @@ def predict(data: StartupInput):
         response_time = round((time.time() - start_time) * 1000, 2)
         logger.error(f"Prediction failed — error: {str(e)}, response_time: {response_time}ms")
         raise HTTPException(status_code=500, detail=str(e))
+
+# Register router with app
+app.include_router(router)
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
