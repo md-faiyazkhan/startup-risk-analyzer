@@ -4,15 +4,6 @@ Predicts whether a startup will succeed or fail based on key business metrics �
 
 ---
 
-<!-- ## 🌐 Live Demo
-
-| Service | URL |
-|---------|-----|
-| Streamlit Dashboard | [Coming Soon] |
-| FastAPI Documentation | [Coming Soon] | -->
-
----
-
 ## 📌 Problem Statement
 
 Every year, thousands of startups are launched globally — but a significant number fail within the first few years due to:
@@ -115,7 +106,7 @@ Logistic Regression was selected as the final model because:
 startup-risk-analyzer/
 │
 ├── app/
-│   ├── init.py
+│   ├── __init__.py
 │   ├── main.py
 │   └── predictor.py
 │
@@ -148,6 +139,7 @@ startup-risk-analyzer/
 │
 ├── .dockerignore
 ├── .gitignore
+├── conftest.py
 ├── Dockerfile
 ├── requirements.txt
 └── README.md
@@ -175,9 +167,11 @@ pip install -r requirements.txt
 Download the dataset from [Kaggle](https://www.kaggle.com/datasets/dhrubangtalukdar/startup-funding-and-outcome-dataset) and place it in `data/raw/`.
 
 **4. Run notebooks in order**
+```
 01_eda.ipynb
 02_preprocessing.ipynb
 03_model_training.ipynb
+```
 This will generate `models/final_pipeline.joblib` automatically.
 
 **5. Run Streamlit Dashboard**
@@ -208,6 +202,8 @@ docker run -p 8000:8000 -p 8501:8501 mdfaiyazkhan/startup-risk-analyzer
 - Streamlit: `http://localhost:8501`
 - FastAPI Docs: `http://localhost:8000/docs`
 
+---
+
 ## 🐳 Docker Hub
 
 Image is publicly available on Docker Hub:
@@ -221,7 +217,29 @@ docker run -p 8000:8000 -p 8501:8501 mdfaiyazkhan/startup-risk-analyzer
 
 ## 📡 API Reference
 
-**Endpoint:** `POST /predict`
+**Base URL:** `http://localhost:8000`
+
+**Health Check**
+```
+GET /v1/health
+```
+
+**Response:**
+```json
+{
+    "status": "healthy",
+    "model": "loaded",
+    "version": "v1.0",
+    "uptime_seconds": 89.15
+}
+```
+
+---
+
+**Prediction**
+```
+POST /v1/predict
+```
 
 **Sample Request:**
 ```json
@@ -249,6 +267,14 @@ docker run -p 8000:8000 -p 8501:8501 mdfaiyazkhan/startup-risk-analyzer
 }
 ```
 
+**Valid Values:**
+
+| Field | Valid Values |
+|-------|-------------|
+| `investor_type` | `angel`, `none`, `tier1_vc`, `tier2_vc` |
+| `sector` | `AI`, `Climate`, `Crypto`, `Ecommerce`, `Fintech`, `Health`, `SaaS` |
+| `founder_background` | `academic`, `ex_bigtech`, `first_time`, `serial_founder` |
+
 ---
 
 ## 🧪 Running Tests
@@ -256,6 +282,8 @@ docker run -p 8000:8000 -p 8501:8501 mdfaiyazkhan/startup-risk-analyzer
 ```bash
 pytest tests/
 ```
+
+Expected output: **4 passed**
 
 ---
 
@@ -281,5 +309,5 @@ This tool is intended for informational purposes only. Predictions are based on 
 
 **Md Faiyaz Khan**
 - GitHub: [@md-faiyazkhan](https://github.com/md-faiyazkhan)
-- LinkedIn: [@mdfaiyazkhan](www.linkedin.com/in/mdfaiyazkhan)
+- LinkedIn: [@mdfaiyazkhan](https://www.linkedin.com/in/mdfaiyazkhan)
 - Email: faiyazkhan.work@gmail.com
